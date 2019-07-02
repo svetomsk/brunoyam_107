@@ -41,5 +41,14 @@ public class Main {
         // считать следующее введенное число
         int inputNumber = sc.nextInt();
         System.out.println("Input number = " + inputNumber);
+
+        int position = 12;
+        if(position <= 0) {
+            System.out.println("Left");
+        } else if(position > 30) {
+            System.out.println("Right");
+        } else {
+            System.out.println("Center");
+        }
     }
 }
