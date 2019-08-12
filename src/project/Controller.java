@@ -7,6 +7,7 @@ public class Controller {
     private Field own;
     private Field rival;
     private View view;
+    private Ship ship;
 
     Random random = new Random();
     public Controller(Field own, Field rival, View view) {
@@ -40,7 +41,10 @@ public class Controller {
 
         } else if (value == Field.SHIP) {
             own.setValue(x, y, Field.CRASHED_SHIP);
+
         }
+
+
 
     }
 
