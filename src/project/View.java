@@ -2,6 +2,8 @@ package project;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class View extends JFrame {
     private Field ownField;
@@ -24,9 +26,9 @@ public class View extends JFrame {
         initControlPanel();
 
         ownLabels = new JLabel[ownField.size()][ownField.size()];
-        own = initField(ownLabels, ownField);
+        own = initField(ownLabels, ownField, false);
         rivalLabels = new JLabel[rivalField.size()][rivalField.size()];
-        rival = initField(rivalLabels, rivalField);
+        rival = initField(rivalLabels, rivalField, true);
 
         add(own);
         add(rival);
@@ -40,26 +42,42 @@ public class View extends JFrame {
         add(control);
     }
 
-    private JPanel initField(JLabel [][] labels, Field field) {
+    private String getStringByCell(int currentCell) {
+        String text = "";
+        if(currentCell == Field.EMPTY || currentCell == Field.HIDDEN_EMPTY || currentCell == Field.HIDDEN_SHIP) {
+            text = "_";
+        } else if(currentCell == Field.CRASHED_SHIP) {
+            text = "#";
+        } else if(currentCell == Field.SHIP) {
+            text = "&";
+        } else if(currentCell == Field.MISSED) {
+            text = "o";
+        }
+        return text;
+    }
+
+    private JPanel initField(JLabel [][] labels, Field field, boolean clickable) {
         JPanel left = new JPanel(new GridLayout(10, 10));
         left.setPreferredSize(new Dimension(400, 400));
         left.setBackground(Color.RED);
         for(int i = 0; i < field.size(); i++) {
             for(int j = 0; j < field.size(); j++) {
                 int currentCell = field.getValue(i, j);
-                String text = "";
-                if(currentCell == Field.EMPTY || currentCell == Field.HIDDEN_EMPTY || currentCell == Field.HIDDEN_SHIP) {
-                    text = "_";
-                } else if(currentCell == Field.CRASHED_SHIP) {
-                    text = "#";
-                } else if(currentCell == Field.SHIP) {
-                    text = "&";
-                } else if(currentCell == Field.MISSED) {
-                    text = "o";
-                }
+                String text = getStringByCell(currentCell);
+
 
                 JLabel label = new JLabel(text);
                 label.setPreferredSize(new Dimension(50, 50));
+                if(clickable) {
+                    int finalJ = j;
+                    int finalI = i;
+                    label.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            controller.cellClicked(finalI, finalJ);
+                        }
+                    });
+                }
                 left.add(label);
                 labels[i][j] = label;
             }
@@ -72,6 +90,16 @@ public class View extends JFrame {
     }
 
     public void updateView() {
+        updateField(ownField, ownLabels);
+        updateField(rivalField, rivalLabels);
+    }
 
+    private void updateField(Field field, JLabel [][] labels) {
+        for(int i = 0; i < field.size(); i++) {
+            for(int j = 0; j < field.size(); j++) {
+                int currentCell = field.getValue(i, j);
+                labels[i][j].setText(getStringByCell(currentCell));
+            }
+        }
     }
 }

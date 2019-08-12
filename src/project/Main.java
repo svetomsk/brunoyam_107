@@ -14,7 +14,7 @@ public class Main {
         Field rival = new Field(new ArrayList<>());
         View view = new View(own, rival);
         Controller ctrl = new Controller(own, rival, view);
-
+        view.setController(ctrl);
         view.setVisible(true);
     }
 }
