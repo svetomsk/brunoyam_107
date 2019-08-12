@@ -48,10 +48,14 @@ public class View extends JFrame {
             for(int j = 0; j < field.size(); j++) {
                 int currentCell = field.getValue(i, j);
                 String text = "";
-                if(currentCell == Field.EMPTY) {
+                if(currentCell == Field.EMPTY || currentCell == Field.HIDDEN_EMPTY || currentCell == Field.HIDDEN_SHIP) {
                     text = "_";
                 } else if(currentCell == Field.CRASHED_SHIP) {
                     text = "#";
+                } else if(currentCell == Field.SHIP) {
+                    text = "&";
+                } else if(currentCell == Field.MISSED) {
+                    text = "o";
                 }
 
                 JLabel label = new JLabel(text);
