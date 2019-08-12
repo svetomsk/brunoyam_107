@@ -29,6 +29,6 @@ public class Test {
             max = Math.max(max, plusOne.calculate(values));
         }
 
-        System.out.println(max); 
+        System.out.println(max);
     }
 }

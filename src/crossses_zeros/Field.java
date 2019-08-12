@@ -1,7 +1,8 @@
-package crosses_zeros;
+package crossses_zeros;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Field {
     public static final int EMPTY = 0;

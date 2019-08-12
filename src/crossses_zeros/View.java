@@ -1,4 +1,4 @@
-package crosses_zeros;
+package crossses_zeros;
 
 public class View {
     private Field field;

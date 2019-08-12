@@ -1,4 +1,4 @@
-package crosses_zeros;
+package crossses_zeros;
 
 import java.awt.*;
 
