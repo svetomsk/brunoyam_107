@@ -1,4 +1,4 @@
-package crossses_zeros;
+package crosses_zeros;
 
 import java.util.ArrayList;
 import java.util.List;
